@@ -1,0 +1,719 @@
+<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body style='background: white; margin: 0;'><table height='100%' width='100%' cellspacing='0' cellpadding='0'><tbody><tr><td align='center' valign='middle'>
+			<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque Note Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .logo-placeholder {
+            background: #e3e9f7;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4b6cb7;
+            font-weight: bold;
+        }
+
+        .logo-placeholder i {
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #4b6cb7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #182848 0%, #4b6cb7 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-filter {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-filter.active {
+            background: #4b6cb7;
+            color: white;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        th:hover {
+            background: #eaecef;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .past-date {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+        }
+
+        .no-records {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Print styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .cheque-table, .cheque-table * {
+                visibility: visible;
+            }
+            .cheque-table {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .action-column {
+                display: none;
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .btn-group {
+                width: 100%;
+            }
+            
+            .btn-filter {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cheque Note System</h1>
+            <p>Manage your cheque records efficiently</p>
+        </header>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Add New Cheque</h2>
+                <div class="logo-placeholder">
+                    <i class="fas fa-building"></i>
+                    <span>Company Logo</span>
+                </div>
+            </div>
+            
+            <form id="cheque-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="cheque-no">Cheque No.</label>
+                        <input type="text" id="cheque-no" placeholder="Enter cheque number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Enter name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bank">Bank</label>
+                        <input type="text" id="bank" placeholder="Enter bank name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Enter description" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Add Cheque
+                </button>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Cheque Records</h2>
+                <div class="btn-group">
+                    <button class="btn btn-filter active" data-filter="all">All</button>
+                    <button class="btn btn-filter" data-filter="day">Today</button>
+                    <button class="btn btn-filter" data-filter="week">This Week</button>
+                    <button class="btn btn-filter" data-filter="month">This Month</button>
+                    <button class="btn btn-filter" data-filter="year">This Year</button>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by cheque no, name, bank, or description...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="cheque-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th data-sort="chequeNo">Cheque No. <i class="fas fa-sort"></i></th>
+                            <th data-sort="date">Date <i class="fas fa-sort"></i></th>
+                            <th data-sort="name">Name <i class="fas fa-sort"></i></th>
+                            <th data-sort="bank">Bank <i class="fas fa-sort"></i></th>
+                            <th>Description</th>
+                            <th class="action-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cheque-list">
+                        <!-- Records will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="no-records" class="no-records">
+                <i class="fas fa-info-circle"></i>
+                <p>No cheque records found. Add your first cheque above.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Designed and developed by AMi (Prompt Eng)</p>
+        </footer>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this cheque record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-filter" id="cancel-delete">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const chequeForm = document.getElementById('cheque-form');
+            const chequeList = document.getElementById('cheque-list');
+            const noRecords = document.getElementById('no-records');
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const filterButtons = document.querySelectorAll('.btn-filter');
+            const deleteModal = document.getElementById('delete-modal');
+            const cancelDelete = document.getElementById('cancel-delete');
+            const confirmDelete = document.getElementById('confirm-delete');
+            const closeModal = document.querySelector('.close');
+            
+            // Data storage
+            let cheques = JSON.parse(localStorage.getItem('cheques')) || [];
+            let currentFilter = 'all';
+            let sortField = 'date';
+            let sortDirection = 'desc';
+            let deleteId = null;
+            
+            // Initialize
+            updateTable();
+            document.getElementById('date').valueAsDate = new Date();
+            
+            // Event Listeners
+            chequeForm.addEventListener('submit', addCheque);
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') performSearch();
+            });
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    updateTable();
+                });
+            });
+            
+            // Table sorting
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+                th.addEventListener('click', function() {
+                    const field = this.dataset.sort;
+                    if (sortField === field) {
+                        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortField = field;
+                        sortDirection = 'asc';
+                    }
+                    updateTable();
+                });
+            });
+            
+            // Modal events
+            cancelDelete.addEventListener('click', closeDeleteModal);
+            confirmDelete.addEventListener('click', deleteCheque);
+            closeModal.addEventListener('click', closeDeleteModal);
+            
+            // Close modal if clicked outside
+            window.addEventListener('click', function(e) {
+                if (e.target === deleteModal) {
+                    closeDeleteModal();
+                }
+            });
+            
+            // Functions
+            function addCheque(e) {
+                e.preventDefault();
+                
+                const chequeNo = document.getElementById('cheque-no').value.trim();
+                const date = document.getElementById('date').value;
+                const name = document.getElementById('name').value.trim();
+                const bank = document.getElementById('bank').value.trim();
+                const description = document.getElementById('description').value.trim();
+                
+                if (!chequeNo || !date || !name || !bank || !description) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                const newCheque = {
+                    id: Date.now(),
+                    chequeNo,
+                    date,
+                    name,
+                    bank,
+                    description
+                };
+                
+                cheques.push(newCheque);
+                saveCheques();
+                updateTable();
+                chequeForm.reset();
+                document.getElementById('date').valueAsDate = new Date();
+            }
+            
+            function saveCheques() {
+                localStorage.setItem('cheques', JSON.stringify(cheques));
+            }
+            
+            function updateTable() {
+                // Filter and sort cheques
+                let filteredCheques = filterCheques(cheques, currentFilter);
+                filteredCheques = sortCheques(filteredCheques, sortField, sortDirection);
+                
+                // Search if there's a search term
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                if (searchTerm) {
+                    filteredCheques = filteredCheques.filter(cheque => 
+                        cheque.chequeNo.toLowerCase().includes(searchTerm) ||
+                        cheque.name.toLowerCase().includes(searchTerm) ||
+                        cheque.bank.toLowerCase().includes(searchTerm) ||
+                        cheque.description.toLowerCase().includes(searchTerm) ||
+                        cheque.date.includes(searchTerm)
+                    );
+                }
+                
+                // Update table
+                chequeList.innerHTML = '';
+                
+                if (filteredCheques.length === 0) {
+                    noRecords.style.display = 'block';
+                    return;
+                }
+                
+                noRecords.style.display = 'none';
+                
+                filteredCheques.forEach((cheque, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Check if date is past
+                    const chequeDate = new Date(cheque.date);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const isPastDate = chequeDate < today;
+                    
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${cheque.chequeNo}</td>
+                        <td class="${isPastDate ? 'past-date' : ''}">${formatDate(cheque.date)}</td>
+                        <td>${cheque.name}</td>
+                        <td>${cheque.bank}</td>
+                        <td>${cheque.description}</td>
+                        <td class="action-column">
+                            <button class="action-btn btn-danger" data-id="${cheque.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    
+                    chequeList.appendChild(row);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.action-btn.btn-danger').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        deleteId = this.dataset.id;
+                        openDeleteModal();
+                    });
+                });
+            }
+            
+            function filterCheques(cheques, filterType) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                switch(filterType) {
+                    case 'day':
+                        return cheques.filter(cheque => {
+                            const chequeDate = new Date(cheque.date);
+                            chequeDate.setHours(0, 0, 0, 0);
+                            return chequeDate.getTime() === today.getTime();
+                        });
+                        
+                    case 'week':
+                        const startOfWeek = new Date(today);
+                        startOfWeek.setDate(today.getDate() - today.getDay());
+                        
+                        const endOfWeek = new Date(today);
+                        endOfWeek.setDate(today.getDate() + (6 - today.getDay()));
+                        
+                        return cheques.filter(cheque => {
+                            const chequeDate = new Date(cheque.date);
+                            chequeDate.setHours(0, 0, 0, 0);
+                            return chequeDate >= startOfWeek && chequeDate <= endOfWeek;
+                        });
+                        
+                    case 'month':
+                        return cheques.filter(cheque => {
+                            const chequeDate = new Date(cheque.date);
+                            return chequeDate.getMonth() === today.getMonth() && 
+                                   chequeDate.getFullYear() === today.getFullYear();
+                        });
+                        
+                    case 'year':
+                        return cheques.filter(cheque => {
+                            const chequeDate = new Date(cheque.date);
+                            return chequeDate.getFullYear() === today.getFullYear();
+                        });
+                        
+                    default:
+                        return cheques;
+                }
+            }
+            
+            function sortCheques(cheques, field, direction) {
+                return cheques.sort((a, b) => {
+                    let valueA = a[field];
+                    let valueB = b[field];
+                    
+                    if (field === 'date') {
+                        valueA = new Date(valueA);
+                        valueB = new Date(valueB);
+                    } else if (typeof valueA === 'string') {
+                        valueA = valueA.toLowerCase();
+                        valueB = valueB.toLowerCase();
+                    }
+                    
+                    if (valueA < valueB) return direction === 'asc' ? -1 : 1;
+                    if (valueA > valueB) return direction === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+            
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+            
+            function performSearch() {
+                updateTable();
+            }
+            
+            function openDeleteModal() {
+                deleteModal.style.display = 'flex';
+            }
+            
+            function closeDeleteModal() {
+                deleteModal.style.display = 'none';
+                deleteId = null;
+            }
+            
+            function deleteCheque() {
+                if (deleteId) {
+                    cheques = cheques.filter(cheque => cheque.id != deleteId);
+                    saveCheques();
+                    updateTable();
+                    closeDeleteModal();
+                }
+            }
+            
+            // Print functionality (could be extended for more specific filtering)
+            window.printTable = function() {
+                window.print();
+            };
+        });
+    </script>
+</body>
+</html></td></tr></tbody></table></body></html>
